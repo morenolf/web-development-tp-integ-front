@@ -14,6 +14,7 @@ function LoginPage() {
   } = useForm({
     resolver: zodResolver(loginSchema),
   });
+  
   const { signin, errors: loginErrors, isAuthenticated } = useAuth();
   const navigate = useNavigate();
 
