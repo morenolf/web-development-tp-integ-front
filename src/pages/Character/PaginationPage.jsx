@@ -2,13 +2,18 @@ import ReactPaginate from "react-paginate"
 import { BsChevronRight, BsChevronLeft } from "react-icons/bs";
 
 export function PaginationPage( { totalPages, setCurrentPage, currentPage }) {
+    console.log("render pagination page");
   const handlePageChange = ({selected}) => {
     setCurrentPage(selected);
   }
     
+  const showNextButton = currentPage !== totalPages - 1;
+  const showPrevButton = currentPage !== 0;
+
   return (
         <ReactPaginate
             nextLabel={
+                showNextButton &&
                 <span className="px-4 py-1 flex items-center justify-center bg-lighGray rounded-md">
                     <BsChevronRight/>
                 </span>
@@ -17,6 +22,7 @@ export function PaginationPage( { totalPages, setCurrentPage, currentPage }) {
             onPageChange={handlePageChange}
             forcePage={currentPage}
             previousLabel={
+                showPrevButton &&
                 <span className="px-4 py-1 flex items-center justify-center bg-lighGray rounded-md">
                     <BsChevronLeft/>
                 </span>

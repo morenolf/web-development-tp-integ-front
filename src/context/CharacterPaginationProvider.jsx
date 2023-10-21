@@ -1,19 +1,25 @@
 import { useEffect, useState } from "react";
 import { useCharacters } from "./CharactersProvider";
+import { useAuth } from "./AuthProvider";
 
 export function CreateCharacterProvider({type}) {
+    console.log("render create provider");
+    const { user } = useAuth();
     const { getCloth } = useCharacters(); 
     const [pages, setPages] = useState([]);
     const [currentPage, setCurrentPage] = useState(0);
-    const totalPages = 10;
+    const [totalPages, setTotalPages] = useState(0);
+    const [clothType, setClothType] = useState(type);
 
-    const fetchPages = async (type) => {
+    const maxPages = 10;
+
+    const fetchPages = async () => {
         const paging = {
             page: currentPage,
-            limit: totalPages
+            limit: maxPages
         } 
         try {
-            const res = await getCloth(type, paging, user.token);        
+            const res = await getCloth(clothType, paging, user.token);        
             setTotalPages(res.totalPages);
             setPages(res.cloth);
         } catch (error) {
@@ -22,13 +28,15 @@ export function CreateCharacterProvider({type}) {
     }
 
     useEffect(()=> {
-        fetchPages(type);
-    }, [currentPage]);
+        fetchPages();
+    }, [currentPage, clothType]);
 
-    return (
+    return {
+        clothType,
         pages,
         totalPages,
         currentPage,
-        setCurrentPage
-    )
+        setCurrentPage,
+        setClothType
+    }
 }

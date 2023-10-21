@@ -1,7 +1,9 @@
-export function ClothCard({ cloth_url }) {
+import { Card } from "../ui";
+
+export const ClothCard = ({cloth_url}) => {
   return (
     <Card>      
-      <img class="w-full block rounded-b" src= { `../images/${cloth_url}` } />
+      <img className="w-full block rounded-b" src= { `../images/image_head_1.jpg` } />
     </Card>
   );
 }

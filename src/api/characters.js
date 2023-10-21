@@ -7,7 +7,7 @@ export const getCharactersRequest = (userId, token) => axios.get(`${API_URL_CHAR
 
 export const getCharacterRequest = (id, token) => axios.get(`${API_URL_CHARACTERS}/${id}`, { headers: { Authorization: `Bearer ${token}` }})
 
-export const createCharacterRequest = (character, token) => axios.post(`${API_URL_CHARACTERS}/`, character, { headers: { Authorization: `Bearer ${token}` }})
+export const createCharacterRequest = (userId, character, token) => axios.post(`${API_URL_CHARACTERS}/${userId}`, {name: "alksjdlkasjd"}, { headers: { Authorization: `Bearer ${token}` }})
 
 export const updateCharacterRequest = (id, character, token) => axios.patch(`${API_URL_CHARACTERS}/${id}`, character, { headers: { Authorization: `Bearer ${token}` }})
 

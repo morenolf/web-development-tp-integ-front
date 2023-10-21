@@ -9,7 +9,14 @@ import { CharacterPaginationPage } from "./CharacterPaginationPage"
 
 export function CharacterFormPage() {
   const { createCharacter, getCharacter, updateCharacter } = useCharacters(); 
-  var [activeButton, setActiveButton] = useState("");
+  const [type, setType] = useState("");
+  const [ character, setCharacter] = useState({
+    name: "",
+    head: "",
+    body: "",
+    legs: "",
+    feet: "",
+  });
 
   const { user } = useAuth();
   const params = useParams();
@@ -22,12 +29,12 @@ export function CharacterFormPage() {
 
   const clickedSubmit = async (value) => {
     try {
-      if (params.id) {
-        updateCharacter(params.id, {
+      if (character.id) {
+        updateCharacter(character.id, {
           ...value,
         }, user.token);
       } else {
-        createCharacter({
+        createCharacter(user._id, {
           ...value,
         }, user.token);
       }
@@ -42,8 +49,9 @@ export function CharacterFormPage() {
     const loadCharacter = async () => {
       if (params.id) {
         const character = await getCharacter(params.id);
-        setValue("name", character.name);
-        setValue("headImage", character.cloth.head.url);
+        setCharacter({...character, id: character._id,});
+        setValue("charactername", character.name);
+        //setValue("headImage", character.cloth.head.url);
         //setValue("bodyImage", character.cloth.body.url)
         //setValue("legsImage", character.cloth.legs.url)
         //setValue("feetImage", character.cloth.feet.url)
@@ -52,6 +60,13 @@ export function CharacterFormPage() {
     loadCharacter();
     //handleSubmit(onSubmit)
   }, []);
+
+    const handleChange = (e) => {
+      setCharacter({
+        ...character,
+        [e.target.name]: e.target.value,
+      });
+    };
 
     return (
         <div className="h-[calc(100vh-100px)] flex items-center justify-center">
@@ -63,21 +78,23 @@ export function CharacterFormPage() {
                 type="text"
                 name="charactername"
                 placeholder="Write your character's name"
+                onChange={handleChange}
                 {...register("charactername")}
                 autoFocus
               />
 
               <h1 className="text-3xl font-bold">Please select your outfit</h1>
               <div>
-                <ButtonFocus focus={activeButton == "head"} type="button" onClick={() => setActiveButton("head")} >Head</ButtonFocus>
-                <ButtonFocus focus={activeButton == "body"} type="button" onClick={() => setActiveButton("body")} >Body</ButtonFocus>
-                <ButtonFocus focus={activeButton == "legs"} type="button" onClick={() => setActiveButton("legs")} >Legs</ButtonFocus>
-                <ButtonFocus focus={activeButton == "feet"} type="button" onClick={() => setActiveButton("feet")} >Feet</ButtonFocus>
+                <ButtonFocus focus={type == "head"} type="button" onClick={() => setType("head")} >Head</ButtonFocus>
+                <ButtonFocus focus={type == "body"} type="button" onClick={() => setType("body")} >Body</ButtonFocus>
+                <ButtonFocus focus={type == "legs"} type="button" onClick={() => setType("legs")} >Legs</ButtonFocus>
+                <ButtonFocus focus={type == "feet"} type="button" onClick={() => setType("feet")} >Feet</ButtonFocus>
               </div>
               
-              {activeButton != "" && <CharacterPaginationPage type={activeButton} />}
+              
+              {type != "" && <CharacterPaginationPage type={type}/>}
 
-              <Button type="submit">Submit</Button>
+              <Button type="submit"> {params.id ? "Save" : "Create"} </Button>
             </form>
           </Card>
         </div>
