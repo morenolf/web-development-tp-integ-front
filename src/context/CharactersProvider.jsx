@@ -1,4 +1,4 @@
-import { createContext, useContext, useState } from "react";
+import { createContext, useContext, useState, useEffect } from "react";
 import {
   createCharacterRequest,
   deleteCharacterRequest,
@@ -9,7 +9,7 @@ import {
 } from "../api/characters";
 
 const CharactersContext = createContext();
-
+  
   export const useCharacters = () => {
     const context = useContext(CharactersContext);
     if (!context) throw new Error("useCharacters must be used within a CharactersProvider");
@@ -17,7 +17,17 @@ const CharactersContext = createContext();
   };
 
   export function CharactersProvider({ children }) {
+    const [errors, setErrors] = useState([]);
     const [characters, setCharacters] = useState([]);
+
+    useEffect(() => {
+      if (errors.length > 0) {
+        const timer = setTimeout(() => {
+          setErrors([]);
+        }, 5000);
+        return () => clearTimeout(timer);
+      }
+    }, [errors]);
 
     const getCharacters = async (userId, token) => {
       const res = await getCharactersRequest(userId, token);
@@ -33,12 +43,13 @@ const CharactersContext = createContext();
       }
     };
   
-    const createCharacter = async (character, token) => {
+    const createCharacter = async (character, userId, token) => {
       try {
-        const res = await createCharacterRequest(character, token);
+        const res = await createCharacterRequest(character, userId, token);
         console.log(res.data);
       } catch (error) {
         console.log(error);
+        setErrors(error.response.data.message);
       }
     };
   
@@ -71,6 +82,7 @@ const CharactersContext = createContext();
     return (
       <CharactersContext.Provider
         value={{
+          errors,
           characters,
           getCharacters,
           deleteCharacter,
