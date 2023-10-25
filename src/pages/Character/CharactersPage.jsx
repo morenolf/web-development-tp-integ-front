@@ -5,10 +5,11 @@ import { useCharacters } from "../../context/CharactersProvider";
 import { useAuth } from "../../context/AuthProvider";
 import { ButtonLink } from "../../components/ui/ButtonLink";
 
+
 export function CharactersPage() {
   const { user } = useAuth();
   const { characters, getCharacters } = useCharacters();
-  
+
   useEffect(() => {
     getCharacters(user._id, user.token);
   }, []);

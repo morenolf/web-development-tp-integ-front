@@ -22,7 +22,8 @@ export default function App() {
               <Route path="/register" element={<RegisterPage/>} />
               <Route element = { <ProtectedRoutes/> } >
                 <Route path="/characters" element={<CharactersPage/>} /> 
-                <Route path="/create" element={<CharacterFormPage/>} />     
+                <Route path="/characters/character" element={<CharacterFormPage/>} />     
+                <Route path="/characters/character/:id" element={<CharacterFormPage/>} />     
               </Route>
             </Routes>
           </BrowserRouter>

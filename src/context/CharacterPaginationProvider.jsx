@@ -3,7 +3,6 @@ import { useCharacters } from "./CharactersProvider";
 import { useAuth } from "./AuthProvider";
 
 export function CreateCharacterProvider({type}) {
-    console.log("render create provider");
     const { user } = useAuth();
     const { getCloth } = useCharacters(); 
     const [pages, setPages] = useState([]);
