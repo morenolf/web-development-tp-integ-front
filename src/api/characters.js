@@ -17,20 +17,6 @@ export const getCharacterRequest = async(id, token) => {
 }
 
 export const createCharacterRequest = async(character, userId, token) => {
-    
-    //axios.post(`${API_URL_CHARACTERS}/${userId}`, character, {Authorization: `Bearer ${token}`} );
-    /*const options = {
-        method: 'POST',
-        headers: { Authorization: `Bearer ${token}` },
-        data: {name: "asadasd"},
-        url: `${API_URL_CHARACTERS}/${userId}`
-    }
-    axios.post(`${API_URL_CHARACTERS}/${userId}`, {}, {"Authorization": `Bearer ${token}`} );
-    //{character, headers: { Authorization: `Bearer ${token}` }}
-    //axios.create()
-    //axios(options);
-    */
-
     const url = `${API_URL_CHARACTERS}/${userId}`
     const auth = `Bearer ${token}`
     const requestOptions = {
@@ -41,7 +27,6 @@ export const createCharacterRequest = async(character, userId, token) => {
     return await fetch(url, requestOptions);
 }
 
-//export const updateCharacterRequest = (id, character, token) => axios.patch(`${API_URL_CHARACTERS}/${id}`, character, { headers: { Authorization: `Bearer ${token}` }})
 
 export const updateCharacterRequest = async(id, character, token) => {
 
@@ -55,9 +40,16 @@ export const updateCharacterRequest = async(id, character, token) => {
     return await fetch(url, requestOptions);
 }
 
-export const deleteCharacterRequest = (id, token) => axios.delete(`${API_URL_CHARACTERS}/${id}`, { headers: { Authorization: `Bearer ${token}` }})
-
-//export const getClothRequest = (type, paging, token) => axios.get(`${API_URL_CLOTH}/${API_URL_CLOTH}`, { headers: { Authorization: `Bearer ${token}` }, params: paging})
+export const deleteCharacterRequest = async(id, userId, token) => {
+    const url = `${API_URL_CHARACTERS}/${userId}/character/${id}`
+    const auth = `Bearer ${token}`
+    const requestOptions = {
+        method: 'DELETE',
+        headers: { 'Content-Type': 'application/json', 'Authorization': auth }
+    };
+    let response = await fetch(url, requestOptions)
+    return await response.json()
+}
 
 export const getClothRequest = async(type, paging, token) => {
     const url = `${API_URL_CLOTH}/${type}?page=${paging.page}&limit=${paging.limit}`

@@ -53,7 +53,7 @@ export function CharacterFormPage() {
         }, user.token);
       } else {
         createCharacter(
-          {name: value.name,
+          { ...character,
             head: characterCloth.head,
             body: characterCloth.body,
             legs: characterCloth.legs,
@@ -102,49 +102,67 @@ export function CharacterFormPage() {
     return (
         <div className="flex items-center justify-center">
           <Card>
-            {
+            {/*
             registerErrors.map((error, i) => (
               <Message message={error} key={i} />
-            ))}
-            <h1 className="text-3xl font-bold">Character</h1>
-            <form onSubmit={handleSubmit(clickedSubmit)}>
-              <Label htmlFor="name">Character Name:</Label>
-              <Input
-                type="text"
-                name="name"
-                value={character.name}
-                placeholder="Write your character's name"
-                className="w-full bg-zinc-700 text-white px-4 py-2 rounded-md"
-                onChange={handleChange}
-                autoFocus
-              />
-              
-              {errors.name?.message && (
+            ))
+          */
+          }
+            <h1 className="text-6xl font-bold text-center">Character</h1>
+            <h1/>
+            <h1/>
+            <form onSubmit={clickedSubmit}>
+            <h1/>
+            <h1/>
+            
+            <div>
+                <h1 className="text-3xl font-bold">Name: </h1>
+                <Input
+                  type="text"
+                  name="name"
+                  value={character.name}
+                  placeholder="Write your character's name"
+                  className="w-full bg-zinc-700 text-white px-4 py-2 rounded-md"
+                  onChange={handleChange}
+                  autoFocus
+                />
+            </div>
+               <h1/>
+              <h1/>
+              {
+              /*
+              errors.name?.message && (
                 <p className="text-red-500">{errors.name?.message}</p>
-              )}
-              <h1 className="text-3xl font-bold">Please select your outfit</h1>
-              <div>
+              )
+              */
+              }
+              <h1/>
+              <h1/>
+              <div className="flex gap-x-2 items-center justify-center">
                 <ButtonFocus focus={type == "head"} type="button" onClick={() => setType("head")} >Head</ButtonFocus>
                 <ButtonFocus focus={type == "body"} type="button" onClick={() => setType("body")} >Body</ButtonFocus>
                 <ButtonFocus focus={type == "legs"} type="button" onClick={() => setType("legs")} >Legs</ButtonFocus>
                 <ButtonFocus focus={type == "feet"} type="button" onClick={() => setType("feet")} >Feet</ButtonFocus>
               </div>
 
-              <h1 className="text-3xl font-bold">Cloth</h1>
-              <div className="flex justify-center items-center flex-col gap-4 bg-lightGray rounded-lg py-2" key={'head'}>
+              <div className="flex justify-center items-center flex-col gap-4 bg-lightGray rounded-lg py-1" key={'head'}>
                       <img className="w-24 p-2 border-[2px] border-solid border-purple rounded-full object-cover" src= { `/images/${characterCloth.head}` } />
               </div>
-              <div className="flex justify-center items-center flex-col gap-4 bg-lightGray rounded-lg py-2" key={'body'}>
+              <div className="flex justify-center items-center flex-col gap-4 bg-lightGray rounded-lg py-1" key={'body'}>
                       <img className="w-24 p-2 border-[2px] border-solid border-purple rounded-full object-cover" src= { `/images/${characterCloth.body}` } />
               </div>
-              <div className="flex justify-center items-center flex-col gap-4 bg-lightGray rounded-lg py-2" key={'legs'}>
+              <div className="flex justify-center items-center flex-col gap-4 bg-lightGray rounded-lg py-1" key={'legs'}>
                       <img className="w-24 p-2 border-[2px] border-solid border-purple rounded-full object-cover" src= { `/images/${characterCloth.legs}` } />
               </div>
-              <div className="flex justify-center items-center flex-col gap-4 bg-lightGray rounded-lg py-2" key={'feet'}>
+              <div className="flex justify-center items-center flex-col gap-4 bg-lightGray rounded-lg py-1" key={'feet'}>
                       <img className="w-24 p-2 border-[2px] border-solid border-purple rounded-full object-cover" src= { `/images/${characterCloth.feet}` } />
               </div>
-
-              <Button type="submit"> {params.id ? "Save" : "Create Character"} </Button>
+              <h1/>
+              <h1/>
+              <div className="flex gap-x-2 items-center justify-end">
+                <Button type="button" onClick={() => navigate("/characters")}> Cancel </Button>
+                <Button type="submit"> {params.id ? "Save" : "Create"} </Button>
+              </div>
             </form>
           </Card>
           

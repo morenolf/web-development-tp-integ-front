@@ -34,11 +34,9 @@ const CharactersContext = createContext();
       setCharacters(res.data);
     };
   
-    const deleteCharacter = async (id, token) => {
+    const deleteCharacter = async (id, userId, token) => {
       try {
-        console.log("characterDeleted ", id)
-        //const res = await deleteCharacterRequest(id, token);
-        //if (res.status === 204) setCharacters(characters.filter((character) => character._id !== id));
+       await deleteCharacterRequest(id, userId, token);
       } catch (error) {
         console.log(error);
       }
@@ -47,7 +45,6 @@ const CharactersContext = createContext();
     const createCharacter = async (character, userId, token) => {
       try {
         const res = await createCharacterRequest(character, userId, token);
-        console.log(res.data);
       } catch (error) {
         console.log(error);
         setErrors(error.response.data.message);
