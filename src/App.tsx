@@ -21,8 +21,8 @@ export default function App() {
               <Route path="/login" element={<LoginPage/>} />
               <Route path="/register" element={<RegisterPage/>} />
               <Route element = { <ProtectedRoutes/> } >
-                <Route path="/characters" element={<CharactersPage/>} /> 
-                <Route path="/characters/character" element={<CharacterFormPage/>} />     
+                <Route path="/characters" element={<CharactersPage/>} />  
+                <Route path="/characters/add-character/:id" element={<CharacterFormPage/>} />     
                 <Route path="/characters/character/:id" element={<CharacterFormPage/>} />     
               </Route>
             </Routes>

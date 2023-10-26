@@ -10,66 +10,65 @@ import { registerSchema } from "../../schemas/character";
 import { zodResolver } from "@hookform/resolvers/zod";
 
 export function CharacterFormPage() {
-  const params = useParams();
-  const { user } = useAuth();
-  const navigate = useNavigate();
-  const { errors: registerErrors, setErrors, createCharacter, getCharacter, updateCharacter } = useCharacters(); 
-  const [type, setType] = useState("");
-  const [characterCloth, setCharacterCloth] = useState({
-    head: "empty.jpg",
-    body: "empty.jpg",
-    legs: "empty.jpg",
-    feet: "empty.jpg",
-  });
+    const params = useParams();
+    const { user } = useAuth();
+    const navigate = useNavigate();
+    const { errors: registerErrors, setErrors, createCharacter, getCharacter, updateCharacter } = useCharacters(); 
+    const [type, setType] = useState("");
+    const [characterCloth, setCharacterCloth] = useState({
+      head: "empty.jpg",
+      body: "empty.jpg",
+      legs: "empty.jpg",
+      feet: "empty.jpg",
+    });
   
-  const [ character, setCharacter] = useState({
-    _id: "",
-    name: "",
-    head: "",
-    body: "",
-    legs: "",
-    feet: "",
-  });
+    const [ character, setCharacter] = useState({
+      _id: "",
+      name: "",
+      head: "",
+      body: "",
+      legs: "",
+      feet: "",
+    });
 
   
-  const {
-    register,
-    setValue,
-    handleSubmit,
-    formState: { errors },
-  } = useForm({
-    resolver: zodResolver(registerSchema),
-  });
+    const {
+      register,
+      setValue,
+      handleSubmit,
+      formState: { errors },
+    } = useForm({
+      resolver: zodResolver(registerSchema),
+    });
 
-  const clickedSubmit = async (value) => {
-    try {
-      if (character._id != "") {
-        updateCharacter(character._id, {
-          ...character,
-          head: characterCloth.head,
-          body: characterCloth.body,
-          legs: characterCloth.legs,
-          feet: characterCloth.feet,
-        }, user.token);
-      } else {
-        createCharacter(
-          { ...character,
+    const clickedSubmit = async (value) => {
+      try {
+        if (character._id != "") {
+          updateCharacter(character._id, {
+            ...character,
             head: characterCloth.head,
             body: characterCloth.body,
             legs: characterCloth.legs,
             feet: characterCloth.feet,
-          }, user._id, user.token);
+          }, user.token);
+        } else {
+          createCharacter(
+            { ...character,
+              head: characterCloth.head,
+              body: characterCloth.body,
+              legs: characterCloth.legs,
+              feet: characterCloth.feet,
+            }, user._id, user.token);
+        }
+        handleSubmit;
+        navigate("/characters");
+      } catch (error) {
+        console.log(error);
       }
-      handleSubmit;
-      navigate("/characters");
-    } catch (error) {
-      console.log(error);
     }
-  }
 
-  useEffect(() => {
-    const loadCharacter = async () => {
-      if (params.id) {
+    const loadCharacter = async (value) => {        
+      if (params.id && params.id != -1) {
         const characterResp = await getCharacter(params.id, user.token);
         setCharacter({...character, 
           _id: characterResp._id,
@@ -87,17 +86,37 @@ export function CharacterFormPage() {
         });
       }
     };
-    loadCharacter();
-  }, []);
+    useEffect(() => {
+      loadCharacter();
+    }, []);
 
 
-  const handleChange = (e) => {
-    setCharacter(({ ...character, [e.target.name]: e.target.value }));
-  }
+    useEffect(() => {
+      if (params.id == -1){
+        setCharacter({...character, 
+          _id: "",
+          name: "",
+          head: "",
+          body: "",
+          legs: "",
+          feet: "",
+        });
+        setCharacterCloth({...characterCloth, 
+          head: "empty.jpg",
+          body: "empty.jpg",
+          legs: "empty.jpg",
+          feet: "empty.jpg",
+        });
+      }
+    }, [params.id]);
 
-  const handlePageChange = (url) => {
-    setCharacterCloth(({ ...characterCloth, [type]: url }))
-  }
+    const handleChange = (e) => {
+      setCharacter(({ ...character, [e.target.name]: e.target.value }));
+    }
+
+    const handlePageChange = (url) => {
+      setCharacterCloth(({ ...characterCloth, [type]: url }))
+    }
 
     return (
         <div className="flex items-center justify-center">
@@ -165,12 +184,11 @@ export function CharacterFormPage() {
               </div>
             </form>
           </Card>
-          
-            {type != "" && 
+          {type != "" && 
             <Card>
               <CharacterPaginationPage onChange={handlePageChange} type={type}/>
             </Card>
-            }
+          }
         </div>
       );
 }

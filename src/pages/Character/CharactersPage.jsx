@@ -3,7 +3,7 @@ import { CharacterCard } from "../../components/characters/CharacterCard";
 import { BsFillPersonFill } from "react-icons/bs";
 import { useCharacters } from "../../context/CharactersProvider";
 import { useAuth } from "../../context/AuthProvider";
-import { ButtonLink, Card } from "../../components/ui";
+import { ButtonLink } from "../../components/ui";
 
 
 export function CharactersPage() {
@@ -16,7 +16,7 @@ export function CharactersPage() {
 
   return (
     <div className="flex items-center justify-center">
-      <Card>
+      <div className="bg-zinc-800 max-w-md w-full p-10 rounded-md">
       {characters.length === 0 && (
         <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-2">
           <div>
@@ -27,12 +27,12 @@ export function CharactersPage() {
         </div>
       )}
       <h1 className="text-3xl font-bold gap-x-2 ">Characters</h1>
-      <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-2">
+      <div className="grid gap-2">
         {characters.map((character) => (
           <CharacterCard character={character} key={character._id} />
         ))}
       </div>
-      </Card>
+      </div>
     </div>
   );
 }
