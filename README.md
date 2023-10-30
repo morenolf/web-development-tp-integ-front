@@ -52,11 +52,13 @@ Banckend is build on repository https://github.com/morenolf/web-development-tp-i
 ### Functionality
 
 - Login
+
 The site has integrated register and loging fuctionality base on tokens and email validated thru backend application. Once the user has arrived on the page it will be registration or loging. 
 In case of registration, needs to provide user id, email and password. After it's registration it will be redirected to his characters page.
 On the other side, needs to provide loging credentials.
 
 - Characters
+
 The user will be able to see there characters on character's page, create, delete and edit characters created.
 The use will have a variaty of cloth divided by head, body, legs and feet.
 There are only 4 slots to create characters, after that it will be show a warning.
