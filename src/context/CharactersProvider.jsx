@@ -36,7 +36,8 @@ const CharactersContext = createContext();
   
     const deleteCharacter = async (id, userId, token) => {
       try {
-       await deleteCharacterRequest(id, userId, token);
+       const resp = await deleteCharacterRequest(id, userId, token);
+       
       } catch (error) {
         console.log(error);
       }

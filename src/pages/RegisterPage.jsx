@@ -22,7 +22,7 @@ function RegisterPage() {
   };
 
   useEffect(() => {
-    if (isAuthenticated) navigate("/");
+    if (isAuthenticated) navigate("/characters");
   }, [isAuthenticated]);
 
   return (
