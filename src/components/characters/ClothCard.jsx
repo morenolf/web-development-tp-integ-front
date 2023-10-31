@@ -1,9 +1,7 @@
-import { Card } from "../ui";
-
-export const ClothCard = ({cloth_url}) => {
+export const ClothCard = ({name, clothUrl}) => {
   return (
-    <Card>      
-      <img className="w-full block rounded-b" src= { `../images/image_head_1.jpg` } />
-    </Card>
+    <div className="flex justify-center items-center flex-col gap-4 bg-lightGray rounded-lg py-1">
+      <img className="w-24 p-2 border-[2px] border-solid border-purple rounded-full object-cover" src= { `/images/${clothUrl}` } />
+    </div>
   );
 }

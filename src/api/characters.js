@@ -61,3 +61,7 @@ export const getClothRequest = async(type, paging, token) => {
     let response = await fetch(url, requestOptions)
     return await response.json()
 }
+
+
+
+export const getTopCharactersRequest = () => axios.get(`${API_URL_CHARACTERS}/top`)

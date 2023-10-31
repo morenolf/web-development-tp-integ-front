@@ -5,7 +5,8 @@ import {
   getCharactersRequest,
   getCharacterRequest,
   updateCharacterRequest,
-  getClothRequest
+  getClothRequest,
+  getTopCharactersRequest
 } from "../api/characters";
 
 const CharactersContext = createContext();
@@ -19,6 +20,7 @@ const CharactersContext = createContext();
   export function CharactersProvider({ children }) {
     const [errors, setErrors] = useState([]);
     const [characters, setCharacters] = useState([]);
+    const [topCharacters, setTopCharacters] = useState([]);
 
     useEffect(() => {
       if (errors.length > 0) {
@@ -77,18 +79,26 @@ const CharactersContext = createContext();
         console.error(error);
       }
     };
+    
+    const getTopCharacters = async () => {
+      const res = await getTopCharactersRequest();
+      setTopCharacters(res.data);
+    };
+    
   
     return (
       <CharactersContext.Provider
         value={{
           errors,
           characters,
+          topCharacters,
           getCharacters,
           deleteCharacter,
           createCharacter,
           getCharacter,
           updateCharacter,
-          getCloth
+          getCloth,
+          getTopCharacters
         }}
       >
         {children}

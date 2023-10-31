@@ -127,15 +127,12 @@ export function CharacterFormPage() {
             ))
           */
           }
-            <h1 className="text-6xl font-bold text-center">Character</h1>
-            <h1/>
-            <h1/>
-            <form onSubmit={clickedSubmit}>
-            <h1/>
-            <h1/>
+            <h1 className="text-6xl font-bold text-center gap-2">Character</h1>
+
+            <form className="gap-5" onSubmit={clickedSubmit}>
             
             <div>
-                <h1 className="text-3xl font-bold">Name: </h1>
+                <h1 className="text-3xl font-bold gap-5">Name: </h1>
                 <Input
                   type="text"
                   name="name"
@@ -146,8 +143,6 @@ export function CharacterFormPage() {
                   autoFocus
                 />
             </div>
-               <h1/>
-              <h1/>
               {
               /*
               errors.name?.message && (
@@ -155,8 +150,6 @@ export function CharacterFormPage() {
               )
               */
               }
-              <h1/>
-              <h1/>
               <div className="flex gap-x-2 items-center justify-center">
                 <ButtonFocus focus={type == "head"} type="button" onClick={() => setType("head")} >Head</ButtonFocus>
                 <ButtonFocus focus={type == "body"} type="button" onClick={() => setType("body")} >Body</ButtonFocus>
@@ -165,16 +158,16 @@ export function CharacterFormPage() {
               </div>
 
               <div className="flex justify-center items-center flex-col gap-4 bg-lightGray rounded-lg py-1" key={'head'}>
-                      <img className="w-24 p-2 border-[2px] border-solid border-purple rounded-full object-cover" src= { `/images/${characterCloth.head}` } />
+                <img className="w-24 p-2 border-[2px] border-solid border-purple rounded-full object-cover" src= { `/images/${characterCloth.head}` } />
               </div>
               <div className="flex justify-center items-center flex-col gap-4 bg-lightGray rounded-lg py-1" key={'body'}>
-                      <img className="w-24 p-2 border-[2px] border-solid border-purple rounded-full object-cover" src= { `/images/${characterCloth.body}` } />
+                <img className="w-24 p-2 border-[2px] border-solid border-purple rounded-full object-cover" src= { `/images/${characterCloth.body}` } />
               </div>
               <div className="flex justify-center items-center flex-col gap-4 bg-lightGray rounded-lg py-1" key={'legs'}>
-                      <img className="w-24 p-2 border-[2px] border-solid border-purple rounded-full object-cover" src= { `/images/${characterCloth.legs}` } />
+                <img className="w-24 p-2 border-[2px] border-solid border-purple rounded-full object-cover" src= { `/images/${characterCloth.legs}` } />
               </div>
               <div className="flex justify-center items-center flex-col gap-4 bg-lightGray rounded-lg py-1" key={'feet'}>
-                      <img className="w-24 p-2 border-[2px] border-solid border-purple rounded-full object-cover" src= { `/images/${characterCloth.feet}` } />
+                <img className="w-24 p-2 border-[2px] border-solid border-purple rounded-full object-cover" src= { `/images/${characterCloth.feet}` } />
               </div>
               <h1/>
               <h1/>
