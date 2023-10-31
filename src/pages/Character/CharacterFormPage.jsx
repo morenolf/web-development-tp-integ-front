@@ -1,11 +1,12 @@
 import { useEffect } from "react";
 import useState from 'react-usestateref'
 import { useNavigate, useParams } from "react-router-dom";
-import { ButtonFocus, Button, Card, Input, Label, EmptyImage } from "../../components/ui";
+import { ButtonFocus, Button, Card, Input } from "../../components/ui";
 import { useCharacters } from "../../context/CharactersProvider";
 import { useForm } from "react-hook-form";
 import { useAuth } from "../../context/AuthProvider";
 import { CharacterPaginationPage } from "./CharacterPaginationPage"
+import { ClothCard } from "../../components/characters/ClothCard";
 import { registerSchema } from "../../schemas/character";
 import { zodResolver } from "@hookform/resolvers/zod";
 
@@ -121,12 +122,6 @@ export function CharacterFormPage() {
     return (
         <div className="flex items-center justify-center">
           <Card>
-            {/*
-            registerErrors.map((error, i) => (
-              <Message message={error} key={i} />
-            ))
-          */
-          }
             <h1 className="text-6xl font-bold text-center gap-2">Character</h1>
 
             <form className="gap-5" onSubmit={clickedSubmit}>
@@ -143,13 +138,6 @@ export function CharacterFormPage() {
                   autoFocus
                 />
             </div>
-              {
-              /*
-              errors.name?.message && (
-                <p className="text-red-500">{errors.name?.message}</p>
-              )
-              */
-              }
               <div className="flex gap-x-2 items-center justify-center">
                 <ButtonFocus focus={type == "head"} type="button" onClick={() => setType("head")} >Head</ButtonFocus>
                 <ButtonFocus focus={type == "body"} type="button" onClick={() => setType("body")} >Body</ButtonFocus>
@@ -157,20 +145,11 @@ export function CharacterFormPage() {
                 <ButtonFocus focus={type == "feet"} type="button" onClick={() => setType("feet")} >Feet</ButtonFocus>
               </div>
 
-              <div className="flex justify-center items-center flex-col gap-4 bg-lightGray rounded-lg py-1" key={'head'}>
-                <img className="w-24 p-2 border-[2px] border-solid border-purple rounded-full object-cover" src= { `/images/${characterCloth.head}` } />
-              </div>
-              <div className="flex justify-center items-center flex-col gap-4 bg-lightGray rounded-lg py-1" key={'body'}>
-                <img className="w-24 p-2 border-[2px] border-solid border-purple rounded-full object-cover" src= { `/images/${characterCloth.body}` } />
-              </div>
-              <div className="flex justify-center items-center flex-col gap-4 bg-lightGray rounded-lg py-1" key={'legs'}>
-                <img className="w-24 p-2 border-[2px] border-solid border-purple rounded-full object-cover" src= { `/images/${characterCloth.legs}` } />
-              </div>
-              <div className="flex justify-center items-center flex-col gap-4 bg-lightGray rounded-lg py-1" key={'feet'}>
-                <img className="w-24 p-2 border-[2px] border-solid border-purple rounded-full object-cover" src= { `/images/${characterCloth.feet}` } />
-              </div>
-              <h1/>
-              <h1/>
+              <ClothCard clothUrl={characterCloth.head}/>
+              <ClothCard clothUrl={characterCloth.body}/>
+              <ClothCard clothUrl={characterCloth.legs}/>
+              <ClothCard clothUrl={characterCloth.feet}/>
+
               <div className="flex gap-x-2 items-center justify-end">
                 <Button type="button" onClick={() => navigate("/characters")}> Cancel </Button>
                 <Button type="submit"> {params.id ? "Save" : "Create"} </Button>
