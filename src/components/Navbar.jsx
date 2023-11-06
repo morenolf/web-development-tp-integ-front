@@ -17,6 +17,9 @@ export function Navbar() {
               Welcome {user.username}
             </li>
             <li>
+              <ButtonLink to="/characters/top/">Top Characters</ButtonLink>
+            </li>
+            <li>
               <ButtonLink to="/characters/add-character/-1">Create</ButtonLink>
             </li>
             <li>
@@ -30,6 +33,9 @@ export function Navbar() {
           </>
         ) : (
           <>
+            <li>
+              <ButtonLink to="/characters/top/">Top Characters</ButtonLink>
+            </li>
             <li>
               <ButtonLink to="/login">Login</ButtonLink>
             </li>
